@@ -8,7 +8,7 @@
 /**
  * Module dependencies
  */
-var logger = require('./logger').Logger;
+var logger = require('./logger').logger;
 
 /**
  * SetupMongoDB
