@@ -24,17 +24,19 @@ var express = require('express'),
     session = require('express-session'),
     passport = require('passport'),
 
-    logger = require('./utils/logger').Logger,
+    logger = require('./utils/logger').logger,
     morgan = require('morgan'),
 
     routes = require('./routes/api'),
 
-    port = process.env.APP_ENV,
+    environment = 'devlocal',
+    port = process.env.API_PORT,
+    version = process.env.API_VERSION,
 
     mongoDB = require('./utils/mongodb');
 
 // MongoDB connection
-mongoDB.SetupMongoDB(process.env.APP_ENV, process.env.APP_ENV);
+mongoDB.SetupMongoDB(process.env.MONGO_URI, process.env.MONGO_DB);
 
 // Express app instance
 var app = express();
@@ -47,7 +49,7 @@ app.set('port', port);
 app.set('view engine', 'jade');
 
 // Favicon path.
-app.use(favicon(__dirname + '/public/img/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 // Logger.
 app.use(morgan('dev'));
@@ -56,9 +58,9 @@ app.use(morgan('dev'));
 app.use(methodOverride());
 
 // Set Header 'X-Prowered-By'
-logger.info('Uparki.com - El poder de compartir | API');
+logger.info('Basic IoT | API');
 app.use(function (req, res, next) {
-    res.set('X-Powered-By', 'Uparki.com - El poder de compartir');
+    res.set('X-Powered-By', 'Basic IoT');
     next();
 });
 
@@ -94,13 +96,13 @@ app.use(express.static(__dirname + '/public'));
 var router = express.Router();
 
 // Setup all routes on express router
-routes.SetupRouter(router);
+//routes.SetupRouter(router);
 
 // Register all our routes with a prefix: /api or /v1
 // This poject is created to be hosted in a subdomain dedicated to authentication and authorization
 // Example of an URL with the prefix: auth.happyauth.com/v0
-app.use(config.version, router);
+app.use(version, router);
 
 // Start the server
 app.listen(port);
-logger.info('API running on http://localhost:' + port + config.version + '/');
+logger.info('API running on http://localhost:' + port +'/' + version + '/');
