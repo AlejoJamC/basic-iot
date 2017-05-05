@@ -1,0 +1,45 @@
+{
+  "name": "basiciot-server",
+  "version": "0.1.0",
+  "description": "Webserver restful structure for IoT project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlejoJamC/basic-iot.git"
+  },
+  "keywords": [
+    "Adafruit",
+    "sensor",
+    "nodejs",
+    "python",
+    "IoT"
+  ],
+  "author": "@AlejoJamC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlejoJamC/basic-iot/issues"
+  },
+  "homepage": "https://github.com/AlejoJamC/basic-iot#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.1",
+    "dotenv": "^4.0.0",
+    "errorhandler": "^1.5.0",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "jade": "^1.11.0",
+    "method-override": "^2.3.8",
+    "moment": "^2.18.1",
+    "mongoose": "^4.9.7",
+    "morgan": "^1.8.1",
+    "oauth2orize": "^1.8.0",
+    "passport": "^0.3.2",
+    "passport-http-bearer": "^1.0.1",
+    "request": "^2.81.0",
+    "serve-favicon": "^2.4.2",
+    "winston": "^2.3.1"
+  }
+}
