@@ -1,3 +1,11 @@
+# Jetbrains editors
+.idea/
+client/.idea/
+server/.idea/
+
+# Node.js Modules
+server/node_modules/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
