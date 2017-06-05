@@ -56,7 +56,7 @@ html(lang='en')
             // Main component for a primary marketing message or call to action
             .jumbotron
                .container
-                  form.form-signin(role='form' action=apiBase+'/oauth2/authorize' method='post')
+                  form.form-signin(role='form' action=apiBase+'oauth2/authorize' method='post')
                      h2 Hi #{user.email}
                      input(type='hidden' name='transaction_id' value='#{transactionID}')
                      p
