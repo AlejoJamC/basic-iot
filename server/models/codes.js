@@ -15,24 +15,24 @@ var mongoose = require('mongoose');
  * Define 'Code' schema.
  */
 var CodeSchema = new mongoose.Schema({
-    value       : {
+    value: {
         type: String,
         required: true
     },
-    redirectUri : {
+    redirectUri: {
         type: String,
         required: true
     },
-    userId      : {
+    userId: {
         type: String,
         required: true
     },
-    clientId    : {
+    clientId: {
         type: String,
         required: true
     }
 }, {
-    timestamps  : true
+    timestamps: true
 });
 
 /**

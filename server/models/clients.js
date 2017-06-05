@@ -15,25 +15,25 @@ var mongoose = require('mongoose');
  * Define 'Client' schema.
  */
 var ClientSchema = new mongoose.Schema({
-    name    : {
-        type : String,
-        unique : true,
+    name: {
+        type: String,
+        unique: true,
         required: true
     },
-    id      : {
+    id: {
         type: String,
-        required : true
+        required: true
     },
-    secret  : {
-        type : String,
-        required : true
+    secret: {
+        type: String,
+        required: true
     },
-    userId  : {
-        type : mongoose.Schema.Types.ObjectId,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     }
 }, {
-    timestamps  : true
+    timestamps: true
 });
 
 /**

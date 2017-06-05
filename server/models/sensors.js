@@ -12,26 +12,18 @@
 var mongoose = require('mongoose');
 
 /**
- * Define 'Token' schema.
+ * Define 'Sensor' schema.
  */
-var TokenSchema = new mongoose.Schema({
-    value: {
-        type: String,
-        required: true
-    },
-    userId: {
-        type: String,
-        required: true
-    },
-    clientId: {
-        type: String,
-        required: true
-    }
+var SensorSchema = new mongoose.Schema({
+    name: String,
+    values: mongoose.Schema.Types.Mixed,
+    userId: mongoose.Schema.Types.ObjectId,
+    clienteId: mongoose.Schema.Types.ObjectId
 }, {
     timestamps: true
 });
 
 /**
- * Expose 'Token'.
+ * Expose 'Sensor'.
  */
-module.exports.Token = mongoose.model('Token', TokenSchema);
+module.exports.Sensor = mongoose.model('Sensor', SensorSchema);

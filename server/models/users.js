@@ -9,26 +9,26 @@
 /**
  * Module dependencies.
  */
-var mongoose    = require('mongoose');
-var logger      = require('../utils/logger').logger;
-var bcrypt      = require('bcrypt-nodejs');
+var mongoose = require('mongoose');
+var logger = require('../utils/logger').logger;
+var bcrypt = require('bcrypt-nodejs');
 
 /**
  * Define 'User' schema.
  */
 var UserSchema = new mongoose.Schema({
-    firstName       : String,
-    lastName        : String,
-    email           : {
+    firstName: String,
+    lastName: String,
+    email: {
         type: String,
         required: true,
         unique: true
     },
-    password        : {
+    password: {
         type: String,
         required: true
     },
-    status          : Boolean
+    status: Boolean
 }, {
     timestamps: true
 });
@@ -40,19 +40,19 @@ UserSchema.pre('save', function (callback) {
     var user = this;
 
     // Break out if the password hasn't changed
-    if(!user.isModified('password')) return callback();
+    if (!user.isModified('password')) return callback();
 
     // Password changed so we need to hash it
     bcrypt.genSalt(5, function (err, salt) {
         // Check for errors and show message
-        if(err){
+        if (err) {
             logger.error(err);
             return callback(err);
         }
 
         bcrypt.hash(user.password, salt, null, function (err, hash) {
             // Check for errors and show message
-            if(err){
+            if (err) {
                 logger.error(err);
                 return callback(err);
             }
@@ -69,7 +69,7 @@ UserSchema.pre('save', function (callback) {
 UserSchema.methods.verifyPassword = function (password, callback) {
     bcrypt.compare(password, this.password, function (err, isMatch) {
         // Check for errors and show message
-        if(err){
+        if (err) {
             logger.error(err);
             return callback(err);
         }
