@@ -93,10 +93,7 @@ app.use(express.static(__dirname + '/public'));
 
 //ROUTER
 //Create our Express router
-var router = express.Router();
-
-// Setup all routes on express router
-routes.SetupRouter(router);
+var router = routes.SetupRouter();
 
 // Register all our routes with a prefix: /api or /v1
 // This poject is created to be hosted in a subdomain dedicated to authentication and authorization
@@ -105,4 +102,4 @@ app.use(version, router);
 
 // Start the server
 app.listen(port);
-logger.info('API running on http://localhost:' + port +'/' + version + '/');
+logger.info('API running on http://localhost:' + port + version + '/');

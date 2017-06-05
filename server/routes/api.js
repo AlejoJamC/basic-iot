@@ -9,6 +9,7 @@
 /**
  * Module dependencies
  */
+var express = require('express');
 var logger = require('../utils/logger').logger;
 var moment = require('moment');
 
@@ -19,7 +20,10 @@ var moment = require('moment');
  *
  * @param {express.Router}      router      The varaible router used by the server
  */
-function SetupRouter(router) {
+function SetupRouter() {
+
+    // Create express router
+    var router = express.Router();
 
     // logger for all request will first hits this middleware
     router.use(function (req, res, next) {
@@ -36,6 +40,7 @@ function SetupRouter(router) {
     var authRoutes = require('./auth');
     var clientRoutes = require('./clients');
     var oauth2Routes = require('./oauth2');
+    var sensorRoutes = require('./sensors');
     var userRoutes = require('./users');
 
 
@@ -74,6 +79,26 @@ function SetupRouter(router) {
 
 
     /**
+     *  Document:  SENSORS.JS
+     *  Define routes where they are stored endpoints
+     */
+    // ENDPOINT: /sensors
+    router.route('/sensors')
+        .get(authRoutes.isAuthenticated, sensorRoutes.getSensors)
+        .post(authRoutes.isAuthenticated, sensorRoutes.postSensor);
+
+    // ENDPOINT: /sensors/:id
+    router.route('/sensors/:id')
+        .get(authRoutes.isAuthenticated, sensorRoutes.getSensorById)
+        .put(authRoutes.isAuthenticated, sensorRoutes.putSensor)
+        .patch(authRoutes.isAuthenticated, sensorRoutes.patchSensor)
+        .delete(authRoutes.isAuthenticated, sensorRoutes.deleteSensor);
+    /**
+     * ====================================================================
+     */
+
+
+    /**
      *  Document:  USERS.JS
      *  Define routes where they are stored endpoints
      */
@@ -95,6 +120,9 @@ function SetupRouter(router) {
     /**
      * ====================================================================
      */
+
+    // Export router entity
+    return router;
 }
 
 // Export the function that initialize all routes
