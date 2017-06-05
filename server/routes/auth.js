@@ -122,7 +122,7 @@ passport.use(new BearerStrategy(
                 return callback(null, false);
             }
 
-            User.findOne({ _id: token.idUser }, function (err, user) {
+            User.findOne({ _id: token.userId }, function (err, user) {
                 if (err){
                     logger.error(err);
                     return callback(err);

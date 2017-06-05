@@ -70,9 +70,9 @@ server.grant(oauth2orize.grant.code(function (client, redirectUri, user, ares, c
     // Create a new authorizatin code
     var code = new Code({
         value : uid(16),
-        idClient : client._id,
+        clientId : client._id,
         redirectUri : redirectUri,
-        idUser : user._id
+        userId : user._id
     });
 
     // Save the auth code and check for errors
@@ -100,7 +100,7 @@ server.exchange(oauth2orize.exchange.code(function (client, code, redirectUri, c
         if(authCode === undefined){
             return callback(null, false);
         }
-        if(client._id.toString() !== authCode.idClient){
+        if(client._id.toString() !== authCode.clientId){
             return callback(null, false);
         }
         if(redirectUri !== authCode.redirectUri){
@@ -117,8 +117,8 @@ server.exchange(oauth2orize.exchange.code(function (client, code, redirectUri, c
             // Create a new access token
             var token = new Token({
                 value : uid(256),
-                idClient : authCode.idClient,
-                idUser : authCode.idUser
+                clientId : authCode.clientId,
+                userId : authCode.userId
             });
 
             // Save the access token and check for errors

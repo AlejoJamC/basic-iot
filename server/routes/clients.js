@@ -13,7 +13,7 @@ var Client = require('../models/clients').Client;
 // ENDPOINT: /clients METHOD: GET
 exports.getClientByIdClient = function(req, res){
     // Use the 'Client' model to find the client by his id [idUser]
-    Client.find({ idUser : req.user._id },function(err, client){
+    Client.find({ userId : req.user._id },function(err, client){
         // Check for errors and show message
         if(err){
             logger.error(err);
@@ -33,7 +33,7 @@ exports.postClient = function (req, res) {
     client.name = req.body.name;
     client.id = req.body.id;
     client.secret = req.body.secret;
-    client.idUser = req.user._id;
+    client.userId = req.user._id;
 
     client.save(function(err){
         // Check for errors and show message
