@@ -77,7 +77,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     resave: true,
     saveUninitialized: true,
-    secret: '3f1l 4 73g 0t d33n yll43r u s1ht d43r n4c u f1'
+    secret: '0trQ7ueVcTt0utldLnMuoVMrpfADoBezSjbV8LaXvBNSF'
 }));
 
 // Use the passport package in our application
@@ -96,7 +96,7 @@ app.use(express.static(__dirname + '/public'));
 var router = express.Router();
 
 // Setup all routes on express router
-//routes.SetupRouter(router);
+routes.SetupRouter(router);
 
 // Register all our routes with a prefix: /api or /v1
 // This poject is created to be hosted in a subdomain dedicated to authentication and authorization
