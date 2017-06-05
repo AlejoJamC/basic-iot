@@ -37,6 +37,7 @@
     "morgan": "^1.8.1",
     "oauth2orize": "^1.8.0",
     "passport": "^0.3.2",
+    "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
     "request": "^2.81.0",
     "serve-favicon": "^2.4.2",
