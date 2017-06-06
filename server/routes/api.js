@@ -91,7 +91,6 @@ function SetupRouter() {
     router.route('/sensors/:id')
         .get(authRoutes.isAuthenticated, sensorRoutes.getSensorById)
         .put(authRoutes.isAuthenticated, sensorRoutes.putSensor)
-        .patch(authRoutes.isAuthenticated, sensorRoutes.patchSensor)
         .delete(authRoutes.isAuthenticated, sensorRoutes.deleteSensor);
     /**
      * ====================================================================
