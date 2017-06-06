@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 # basic packages required
-import httplib, urllib, json, base64
+import httplib, urllib, json
 
 # Adafruit library
 import Adafruit_DHT
@@ -13,7 +13,7 @@ env = json.loads(open('env.json').read())
 api_server = env['api_server']
 api_version = env['api_version']
 api_url = api_server + api_version
-auth = base64.b64decode('Bearer ' + env['bearer_token'])  # Bearer token assigned to this raspberry
+auth ='Bearer ' + env['bearer_token']  # Bearer token assigned to this raspberry
 
 # Raspberry params
 # Raspberry ID
