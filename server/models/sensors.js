@@ -17,8 +17,7 @@ var mongoose = require('mongoose');
 var SensorSchema = new mongoose.Schema({
     name: String,
     values: mongoose.Schema.Types.Mixed,
-    userId: mongoose.Schema.Types.ObjectId,
-    clienteId: mongoose.Schema.Types.ObjectId
+    clientId: mongoose.Schema.Types.ObjectId
 }, {
     timestamps: true
 });

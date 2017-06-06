@@ -46,11 +46,9 @@ exports.postSensor = function(req, res) {
     var sensor = new Sensor();
 
     // Set the Sensor properties that came from the POST data
-    sensor.firstName = req.body.firstName;
-    sensor.lastName = req.body.lastName;
-    sensor.email = req.body.email;
-    sensor.password = req.body.password;
-    sensor.status = req.body.status;
+    sensor.name = req.body.name;
+    sensor.values = req.body.values;
+    sensor.clientId = req.body.clientId;
 
     sensor.save(function(err) {
         // Check for errors and show message
@@ -73,10 +71,9 @@ exports.putSensor = function(req, res) {
         }
 
         // Set the Sensor properties that came from the PUT data
-        sensor.firstName = req.body.firstName;
-        sensor.lastName = req.body.lastName;
-        sensor.password = req.body.password;
-        sensor.status = req.body.status;
+        sensor.name = req.body.name;
+        sensor.values = req.body.values;
+        sensor.clientId = req.body.clientId;
 
         sensor.save(function(err) {
             // Check for errors and show message
@@ -86,35 +83,6 @@ exports.putSensor = function(req, res) {
             }
             // success
             res.status(200).json({ message: 'Sensor updated successfully', data: sensor });
-        });
-    });
-};
-
-// ENDPOINT: /sensors/:id METHOD: PATCH
-exports.patchSensor = function(req, res) {
-    Sensor.findById(req.params.id, function(err, sensor) {
-        // Check for errors and show message
-        if (err) {
-            logger.error(err);
-            return res.json(err);
-        }
-
-        sensor.status = req.body.status;
-
-        sensor.save(function(err) {
-            // Check for errors and show message
-            if (err) {
-                logger.error(err);
-                return res.json({ message: 'Error trying to change sensor status', data: err });
-            }
-            var message = '';
-            if (sensor.enabled === true) {
-                message = 'Sensor enabled successfully';
-            } else {
-                message = 'Sensor disbled successfully';
-            }
-            // success
-            res.status(200).json({ message: message, data: sensor });
         });
     });
 };
