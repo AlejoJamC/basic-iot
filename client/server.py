@@ -1,54 +1,77 @@
 #!/usr/bin/python
 
-import httplib, urllib
+# basic packages required
+import httplib, urllib, json, base64
 
-# import Adafruit_DHT
+# Adafruit library
+import Adafruit_DHT
 
-# Raspberry Params
+# Read json file "env.json"
+env = json.loads(open('env.json').read())
+
+# API server params
+api_server = env['api_server']
+api_version = env['api_version']
+api_url = api_server + api_version
+auth = base64.b64decode('Bearer ' + env['bearer_token'])  # Bearer token assigned to this raspberry
+
+# Raspberry params
 # Raspberry ID
-rasp_id = 1
-# Bearer token assigned to this raspberry
-auth_token = ""
+rasp_id = env['rasp_id']
 
 # Adafruit_DHT.DHT22
-# sensor = Adafruit_DHT.DHT22
+sensor = Adafruit_DHT.DHT22
 
 # Raspberry Pi connected to GPIO23.
 pin = 23
 
 # varaibles sensor values
-# humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
-humedity = 66.8
-temperature = 27.5
+humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+# humidity = 66.8
+# temperature = 27.5
 
-'''
-# Return
-if humidity is not None and temperature is not None:
-    print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity))
+# print connection messages
+print('Connecting to Basic IoT API server')
+# Validate API URL different than Null or None
+if api_url is not None:
+    print(api_url)
 else:
-    print('Failed to get reading. Try again!')
-'''
+    print('Error, it cannot find API URL to connect')
+# Validate if Bearer token was loaded
+if auth is not None:
+    print('Authenticacion values: ok')
+else:
+    print('Error loading authentication values')
 
 # Connect to basic iot - server
-# Endpoint /perifericos/:id Method: POST
+# Endpoint /sensors/:id Method: POST
 # Connection to server IP
-conn = httplib.HTTPSConnection("")
+conn = httplib.HTTPSConnection(api_url)
 # Assigne body values
 params = urllib.urlencode({
-    '@temperatura': temperature,
-    "@humedad": humedity,
-    "hardwareId": rasp_id
+    '@name': 'Raspberry # 1',
+    '@values': {
+        '@humedad': humidity,
+        '@temperatura': temperature
+    },
+    '@clientId': rasp_id
 })
 # Declare headers
 headers = {
-    "Content-type" : "application/x-www-form-urlencoded",
-    "Authorization" : "Bearer " + auth_token
+    "Content-type": "application/x-www-form-urlencoded",
+    "Authorization": auth
 }
 # Request
-conn.request("POST", "", params, headers)
+conn.request("POST", "/sensors", params, headers)
 # Response details
 response = conn.getresponse()
 print response.status, response.reason
 data = response.read()
 print data
 conn.close()
+
+# Return values
+if humidity is not None and temperature is not None:
+    print('Temp={0:0.1f}*C  Humidity={1:0.1f}%'.format(temperature, humidity))
+else:
+    print('Failed to get reading. Try again!')
