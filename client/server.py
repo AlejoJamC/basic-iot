@@ -47,6 +47,12 @@ else:
 # Endpoint /sensors/:id Method: POST
 # Connection to server IP
 conn = httplib.HTTPSConnection(api_url)
+
+# Testing get values
+conn.request("GET", "/users")
+r1 = conn.getresponse()
+print r1.status, r1.reason
+
 # Assigne body values
 params = urllib.urlencode({
     '@name': 'Raspberry # 1',
