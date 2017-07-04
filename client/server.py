@@ -4,7 +4,7 @@
 import requests, json
 
 # Adafruit library
-# import Adafruit_DHT
+import Adafruit_DHT
 
 # Read json file "env.json"
 env = json.loads(open('env.json').read())
@@ -20,15 +20,15 @@ auth = 'Bearer ' + env['bearer_token']  # Bearer token assigned to this raspberr
 rasp_id = env['rasp_id']
 
 # Adafruit_DHT.DHT22
-# sensor = Adafruit_DHT.DHT22
+sensor = Adafruit_DHT.DHT22
 
 # Raspberry Pi connected to GPIO23.
 pin = 23
 
 # varaibles sensor values
-# humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
-humidity = 66.8
-temperature = 27.5
+humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+# humidity = 66.8
+# temperature = 27.5
 
 # print connection messages
 print('Connecting to Basic IoT API server')
@@ -64,6 +64,7 @@ header = {
 
 # Request
 r = requests.post(endpoint, headers= header, data= json.dumps(data))
+print 'response: ' + r.status_code
 
 # Return values
 if humidity is not None and temperature is not None:
