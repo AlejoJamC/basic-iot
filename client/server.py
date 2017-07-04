@@ -64,7 +64,7 @@ header = {
 
 # Request
 r = requests.post(endpoint, headers= header, data= json.dumps(data))
-print 'response: ' + r.status_code
+print r.status_code
 
 # Return values
 if humidity is not None and temperature is not None:
