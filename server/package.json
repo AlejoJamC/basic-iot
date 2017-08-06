@@ -35,12 +35,14 @@
     "moment": "^2.18.1",
     "mongoose": "^4.9.7",
     "morgan": "^1.8.1",
+    "node-dweetio": "0.0.11",
     "oauth2orize": "^1.8.0",
     "passport": "^0.3.2",
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
     "request": "^2.81.0",
     "serve-favicon": "^2.4.2",
+    "twilio": "^3.4.0",
     "winston": "^2.3.1"
   }
 }
