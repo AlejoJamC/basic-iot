@@ -51,8 +51,8 @@ endpoint = api_url + "/sensors"
 data = {
     'name': 'raspberry principal',
     'values': {
-        'humedad': humidity,
-        'temperatura': temperature
+        'humidity': humidity,
+        'temperature': temperature
     },
     'clientId': rasp_id
 }
