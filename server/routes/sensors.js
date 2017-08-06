@@ -12,6 +12,14 @@
 var logger = require('../utils/logger').logger;
 var Sensor = require('../models/sensors').Sensor;
 
+var dweetClient = require('node-dweetio');
+var dweetio = new dweetClient();
+
+var twilioClient = require('twilio');
+var TwilioAccountSid = process.env.TWILIO_TOKEN_SID;
+var twilioAuthToken = process.env.TWILIO_TOKEN_AUTH;
+var twilio = new twilioClient(TwilioAccountSid, twilioAuthToken);
+
 // ENDPOINT: /sensors METHOD: GET
 exports.getSensors = function(req, res) {
     // Use the 'Sensor' model to find all sensors
