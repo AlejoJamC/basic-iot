@@ -53,10 +53,30 @@ exports.postSensor = function(req, res) {
     // Create a new instance of the Sensor model
     var sensor = new Sensor();
 
+    var name = req.body.name;
+    var clientId = req.body.clientId;
+
+    // Parse values to float with 2 decimals
+    var values = {};
+    var humidity  = Number(req.body.values.humidity).toFixed(2);
+    var temperature = Number(req.body.values.temperature).toFixed(2);
+
+    values.humidity = humidity;
+    values.temperature = temperature;
+
     // Set the Sensor properties that came from the POST data
-    sensor.name = req.body.name;
-    sensor.values = req.body.values;
-    sensor.clientId = req.body.clientId;
+    sensor.name = name;
+    sensor.values = values;
+    sensor.clientId = clientId;
+
+    // Calling dweet.io platform
+    dweetio.dweet_for(clientId, {'humidity': humidity, 'temperature': temperature}, function(err, dweet){
+        logger.info('published in https://dweet.io successfully'); // "my-thing"
+        logger.info(dweet.thing); // "my-thing"
+        logger.info(dweet.content); // The content of the dweet
+        logger.info(dweet.created); // The create date of the dweet
+
+    });
 
     sensor.save(function(err) {
         // Check for errors and show message
