@@ -42,6 +42,7 @@ function SetupRouter() {
     var oauth2Routes = require('./oauth2');
     var sensorRoutes = require('./sensors');
     var userRoutes = require('./users');
+    var watchermen = require('./watchermen');
 
 
     /**
@@ -119,6 +120,28 @@ function SetupRouter() {
     /**
      * ====================================================================
      */
+
+
+    /**
+     *  Document:  WATCHERMEN.JS
+     *  Define routes where they are stored endpoints
+     */
+    // ENDPOINT: /watchermen
+    router.route('/watchermen')
+        .get(authRoutes.isAuthenticated, watchermen.getWatchermen)
+        .post(watchermen.postWatcherman);
+
+    // ENDPOINT: /watchermen/:id
+    router.route('/watchermen/:id')
+        .get(authRoutes.isAuthenticated, watchermen.getWatchermanById)
+        .put(authRoutes.isAuthenticated, watchermen.putWatcherman)
+        .patch(authRoutes.isAuthenticated, watchermen.patchWatcherman)
+        .delete(authRoutes.isAuthenticated, watchermen.deleteWatcherman);
+    /**
+     * ====================================================================
+     */
+
+
 
     // Export router entity
     return router;
