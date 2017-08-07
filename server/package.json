@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/AlejoJamC/basic-iot#readme",
   "dependencies": {
+    "async": "^2.5.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.1",
     "dotenv": "^4.0.0",
