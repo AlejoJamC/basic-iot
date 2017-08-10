@@ -9,8 +9,10 @@
 /**
  * Module dependencies.
  */
+var async = require('async');
 var logger = require('../utils/logger').logger;
 var Sensor = require('../models/sensors').Sensor;
+var Watcherman = require('../models/watchermen').Watcherman;
 
 var dweetClient = require('node-dweetio');
 var dweetio = new dweetClient();
