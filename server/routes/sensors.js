@@ -101,6 +101,46 @@ exports.postSensor = function(req, res) {
         generateSMS = true;
         contentSMS += 'Alerta de Humedad minima (' + humiMax + '), actual: ' + humidity + '. ';
     }
+
+    // Send SMS twilio
+    if(generateSMS){
+        // Get list of phone numbers to
+        Watcherman.find(function(err, watchermen) {
+            // Check for errors and show message
+            if (err) {
+                logger.error(err);
+                return res.json({ message: 'Error trying to list watchermen', data: err });
+            }
+            // success
+            logger.info(JSON.stringify(watchermen));
+
+            if(watchermen.length > 0){
+                async.forEach(watchermen, function (watcherman, callback) {
+                    // validate if have to send sms message
+                    if(watcherman.sms){
+                        var phone = '+57 ' + watcherman.mobile;
+                        logger.info(phone);
+                        twilio.messages.create({
+                            to: phone,
+                            from: process.env.DEFAULT_FROM_MOBILE,
+                            body: contentSMS
+                        }, callback);
+                    }
+                    // validate if needs to generate a voice message
+                    if(watcherman.voice){
+
+                    }
+                }, function (err) {
+                    if (err) {
+                        logger.error(err);
+                        //return res.json({ message: 'Error send twilio sms message', data: err });
+                    }
+                    // Success
+                });
+            }
+        });
+    }
+
     sensor.save(function(err) {
         // Check for errors and show message
         if (err) {
