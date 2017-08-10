@@ -80,6 +80,27 @@ exports.postSensor = function(req, res) {
 
     });
 
+    // Validate max / min humidity and temperature
+    var tempMin = process.env.TEMPERATURE_MIN;
+    var tempMax = process.env.TEMPERATURE_MAX;
+    var humiMin = process.env.HUMIDITY_MIN;
+    var humiMax = process.env.HUMIDITY_MAX;
+    var generateSMS = false;
+    var contentSMS = '';
+
+    if(temperature < tempMin){
+        generateSMS = true;
+        contentSMS += 'Alerta de Temperatura minima (' + tempMin + '), actual: ' + temperature + '. ';
+    } else if(temperature > tempMax){
+        generateSMS = true;
+        contentSMS += 'Alterta de Temperatura Maxima (' + tempMax + '), actual: ' + temperature + '. ';
+    } else if(humidity < humiMin){
+        generateSMS = true;
+        contentSMS += 'Alerta de Humedad minima (' + humiMin + '), actual: ' + humidity + '. ';
+    } else if(humidity > humiMax){
+        generateSMS = true;
+        contentSMS += 'Alerta de Humedad minima (' + humiMax + '), actual: ' + humidity + '. ';
+    }
     sensor.save(function(err) {
         // Check for errors and show message
         if (err) {
