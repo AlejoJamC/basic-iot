@@ -20,6 +20,8 @@ var WatchermanSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    sms: Boolean,
+    voice: Boolean,
     status: Boolean
 }, {
     timestamps: true
