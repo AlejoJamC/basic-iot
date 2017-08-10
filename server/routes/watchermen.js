@@ -47,6 +47,8 @@ exports.postWatcherman = function(req, res) {
 
     // Set the Watcherman properties that came from the POST data
     watcherman.mobile = req.body.mobile;
+    watcherman.sms = req.body.sms;
+    watcherman.voice = req.body.voice;
     watcherman.status = req.body.status;
 
     watcherman.save(function(err) {
@@ -71,6 +73,8 @@ exports.putWatcherman = function(req, res) {
 
         // Set the Watcherman properties that came from the PUT data
         watcherman.mobile = req.body.mobile;
+        watcherman.sms = req.body.sms;
+        watcherman.voice = req.body.voice;
         watcherman.status = req.body.status;
 
         watcherman.save(function(err) {
