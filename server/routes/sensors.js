@@ -88,19 +88,24 @@ exports.postSensor = function(req, res) {
     var generateSMS = false;
     var contentSMS = '';
 
-    if(temperature < tempMin){
+    if(Number(temperature) < Number(tempMin)){
         generateSMS = true;
-        contentSMS += 'Alerta de Temperatura minima (' + tempMin + '), actual: ' + temperature + '. ';
-    } else if(temperature > tempMax){
+        contentSMS += 'Alerta de Temperatura Minima (' + tempMin + '), actual: ' + temperature + '. ';
+    }
+    if(Number(temperature) > Number(tempMax)){
         generateSMS = true;
         contentSMS += 'Alterta de Temperatura Maxima (' + tempMax + '), actual: ' + temperature + '. ';
-    } else if(humidity < humiMin){
-        generateSMS = true;
-        contentSMS += 'Alerta de Humedad minima (' + humiMin + '), actual: ' + humidity + '. ';
-    } else if(humidity > humiMax){
-        generateSMS = true;
-        contentSMS += 'Alerta de Humedad minima (' + humiMax + '), actual: ' + humidity + '. ';
     }
+    if(Number(humidity) < Number(humiMin)){
+        generateSMS = true;
+        contentSMS += 'Alerta de Humedad Minima (' + humiMin + '), actual: ' + humidity + '. ';
+    }
+    if(Number(humidity) > Number(humiMax)){
+        generateSMS = true;
+        contentSMS += 'Alerta de Humedad Maxima (' + humiMax + '), actual: ' + humidity + '. ';
+    }
+
+    logger.info(contentSMS);
 
     // Send SMS twilio
     if(generateSMS){
@@ -133,9 +138,10 @@ exports.postSensor = function(req, res) {
                 }, function (err) {
                     if (err) {
                         logger.error(err);
-                        //return res.json({ message: 'Error send twilio sms message', data: err });
+                        return res.json({ message: 'Error send twilio sms message', data: err });
                     }
                     // Success
+                    return res.status(200).send('SMS send successfully');
                 });
             }
         });
