@@ -88,6 +88,9 @@ function SetupRouter() {
         .get(authRoutes.isAuthenticated, sensorRoutes.getSensors)
         .post(authRoutes.isAuthenticated, sensorRoutes.postSensor);
 
+    router.route('/sensors/voice')
+        .post(authRoutes.isAuthenticated, sensorRoutes.postVoiceMessage);
+
     // ENDPOINT: /sensors/:id
     router.route('/sensors/:id')
         .get(authRoutes.isAuthenticated, sensorRoutes.getSensorById)

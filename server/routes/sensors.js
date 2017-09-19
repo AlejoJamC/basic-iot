@@ -152,6 +152,27 @@ exports.postSensor = function(req, res) {
     });
 };
 
+// ENDPOINT: /sensors/voice METHOD: POST
+exports.postVoiceMessage = function (req, res) {
+    var toNumber = '+57' + req.body.to;
+    var urlMessage = req.body.url;
+    logger.info(toNumber);
+    logger.info(urlMessage);
+
+    twilio.calls.create({
+        url: urlMessage,
+        to: toNumber,
+        from: process.env.DEFAULT_FROM_MOBILE
+    }, function(err, call) {
+        if(err){
+            logger.info(err);
+            return res.status(400).send('Error haciendo llamada al # ' + toNumber);
+        }
+        logger.info(call.sid);
+        return res.status(200).send('Llamada exitosa al # ' + toNumber);
+    });
+};
+
 // ENDPOINT: /sensors/:id METHOD: PUT
 exports.putSensor = function(req, res) {
     Sensor.findById(req.params.id, function(err, sensor) {
