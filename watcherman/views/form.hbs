@@ -1,0 +1,42 @@
+<div class="container">
+    <form id="contact" action="" method="post">
+        <h3>Supervisores</h3>
+        <h4>Registrar solo numeros de celular Colombianos validos.</h4>
+        <fieldset>
+            <input placeholder="telefono celular" type="text" name="mobile" id="mobile" tabindex="1" required autofocus>
+        </fieldset>
+        <fieldset>
+            <button name="submit" type="submit" id="submitform" data-submit="...Enviando">Registrar</button>
+        </fieldset>
+    </form>
+    <br/>
+    <div class="marco">
+        <div ng-show="DataError" class="alert alert-danger" role="alert">
+            Error conectando con la base de datos
+        </div>
+        <div>
+            <h3>Lista de Supervisores:</h3>
+        </div>
+        <table class="table-fill">
+            <thead>
+            <tr>
+                <th >Telefono</th>
+                <th >SMS</th>
+                <th >Opciones</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr>
+                <td >3168900722</td>
+                <td >
+                    <span class="glyphicon glyphicon-ok"></span>
+                </td>
+                <td >
+                    <button class='btn btn-danger glyphicon glyphicon-remove'>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
