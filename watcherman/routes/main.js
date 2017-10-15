@@ -91,4 +91,36 @@ mainRouter.post('/watchermen', function (req, res) {
     });
 });
 
+/* DELETE Watcherman by Id. */
+mainRouter.delete('/watchermen/:id', function (req, res) {
+    var watchermanId = req.params.id;
+    // Basic error validator
+    var error = '';
+    // Error
+    if (typeof req.query.error !== 'undefined') {
+        error = req.query.error;
+    }
+
+    // Validate id
+    if (typeof req.params.id === 'undefined') {
+        error = 'El Id del supervisor es obligatorio';
+    }
+
+    // Request options
+    var options = {
+        url: process.env.WEB_SERVICE + '/watchermen/' + watchermanId,
+        headers: {
+            'Authorization': 'Bearer ' + process.env.BEARER_KEY,
+            'Content-Type': 'application/json'
+        },
+        method: 'DELETE',
+        json: {}
+    };
+
+    // Sending customer creation method
+    request.delete(options, function (err, httpResponse, body) {
+    });
+});
+
+
 module.exports = mainRouter;
