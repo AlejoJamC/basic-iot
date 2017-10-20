@@ -2,6 +2,7 @@
 .idea/
 client/.idea/
 server/.idea/
+watcherman/.idea/
 
 # Node.js Modules
 server/node_modules/
