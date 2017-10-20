@@ -1,56 +1,34 @@
 <div class="container">
-    <form id="contact" action="" method="post">
+    <form id="contact" action="" onsubmit="return false;">
         <h3>Supervisores</h3>
         <h4>Registrar solo numeros de celular Colombianos validos.</h4>
         <fieldset>
             <input placeholder="telefono celular" type="text" name="mobile" id="mobile" tabindex="1" required autofocus>
         </fieldset>
         <fieldset>
-            <button name="submit" type="submit" id="submitform" data-submit="...Enviando">Registrar</button>
+            <button name="submit" type="submit" id="submitform" onclick="guardarSupervisor();" data-submit="...Enviando">Registrar</button>
         </fieldset>
     </form>
     <br/>
-    <div class="marco" ng-init="loadData()">
-        <div ng-show="DataError" class="alert alert-danger" role="alert">
+    <div class="marco">
+        <!--<div class="alert alert-danger" role="alert">
             Error conectando con la base de datos
         </div>
-        <div ng-show="watchermen.length == 0" class="alert alert-warning" role="alert">
+        <div class="alert alert-warning" role="alert">
             No se encontraron supervisores registrados en la base de datos.
         </div>
         <div>
             <h3>Lista de Supervisores:</h3>
-        </div>
-        <table ng-show="watchermen.length > 0" class="table-fill">
+        </div>-->
+        <table id="watchermen_list" class="table-fill">
             <thead>
             <tr>
-                <th >Telefono</th>
-                <th >SMS</th>
-                <th >Opciones</th>
+                <th>Telefono</th>
+                <th>SMS</th>
+                <th>Opciones</th>
             </tr>
             </thead>
-            <tbody >
-            <tr ng-repeat="w in watchermen">
-                <td >{{$index}}</td>
-                <td >
-                    <span class="glyphicon glyphicon-ok"></span>
-                </td>
-                <td >
-                    <button class='btn btn-danger glyphicon glyphicon-remove'>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td >3168900722</td>
-                <td >
-                    {{{watchermen.length}}}
-                    <span class="glyphicon glyphicon-ok"></span>
-                </td>
-                <td >
-                    <button class='btn btn-danger glyphicon glyphicon-remove'>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 </div>
