@@ -1,50 +1,55 @@
-/**
- * Copyright (c) 2017-present, Alejandro Mantilla <@AlejoJamC>.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree or translated in the assets folder.
- */
+function cargarDatos() {
+    $.get('/watchermen', function (data) {
+            $('#watchermen_list > tbody').empty();
+            $.each(data, function (index, w) {
+                var icon = 'glyphicon-remove';
+                if (w.sms) {
+                    icon = 'glyphicon-ok';
+                }
 
-var app = angular.module('watcherman', []);
-app.controller('WatchermanCtrl', ['$scope', '$http', function ($scope, $http) {
-    $scope.loadData = function () {
-        $http({
-            method: 'GET',
-            url: '/watchermen',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function successCallback(response) {
-            $scope.DataError = false;
-            $scope.watchermen = JSON.parse(response.data);
-            console.log($scope.watchermen);
-            console.log($scope.watchermen[0].mobile);
-            console.log($scope.watchermen[1]);
-            console.log(typeof $scope.watchermen);
-        }, function errorCallback(response) {
-            $scope.DataError = true;
-            $scope.watchermen = {};
-        });
-    };
+                $('#watchermen_list tbody').append(
+                    '<tr>' +
+                    '<td>' + w.mobile + '</td>' +
+                    '<td><span class="glyphicon ' + icon + '"></span></td>' +
+                    '<td >' +
+                    '<button onclick="eliminarSupervisor(\'' +  w._id + '\');" ' +
+                    'class="btn btn-danger glyphicon glyphicon-remove">' +
+                    '</button>' +
+                    '</td>' +
+                    '</tr>'
+                );
+            });
+        }
+    );
+}
 
-    $scope.deleteById = function (id) {
-        $http({
-            method: 'DELETE',
-            url: '/watchermen',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function successCallback(response) {
-            $scope.DataError = false;
-            $scope.watchermen = JSON.parse(response.data);
-            console.log($scope.watchermen);
-            console.log($scope.watchermen[0].mobile);
-            console.log($scope.watchermen[1]);
-            console.log(typeof $scope.watchermen);
-        }, function errorCallback(response) {
-            $scope.DataError = true;
-            $scope.watchermen = {};
-        });
-    }
-}]);
+function guardarSupervisor() {
+    var watcherman = {};
+    watcherman.mobile = $('#mobile').val();
+    $.ajax({
+        url: '/watchermen',
+        type: 'post',
+        dataType: 'json',
+        success: function (data) {},
+        data: watcherman
+    });
+    $('#mobile').val('');
+    $('#watchermen_list > tbody').empty();
+    cargarDatos();
+}
+
+function eliminarSupervisor(id) {
+    $.ajax({
+        url: '/watchermen/' + id,
+        type: 'delete',
+        dataType: 'json',
+        success: function (data) {},
+        data: {}
+    });
+    $('#watchermen_list > tbody').empty();
+    cargarDatos();
+}
+
+jQuery(document).ready(function () {
+    cargarDatos();
+});
