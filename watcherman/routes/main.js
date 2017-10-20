@@ -56,6 +56,9 @@ mainRouter.get('/watchermen', function (req, res) {
             logger.error('Error getting watchermen list: ' + err);
         }
         //Success
+        body = JSON.parse(body);
+        //logger.info(typeof body);
+        //logger.info(body);
         res.json(body);
     });
 });
@@ -87,7 +90,10 @@ mainRouter.post('/watchermen', function (req, res) {
 
     // Sending customer creation method
     request.post(options, function (err, httpResponse, body) {
-
+        if(err){
+            logger.error('Error saving watchermen: ' + err);
+        }
+        res.send('ok');
     });
 });
 
@@ -119,6 +125,10 @@ mainRouter.delete('/watchermen/:id', function (req, res) {
 
     // Sending customer creation method
     request.delete(options, function (err, httpResponse, body) {
+        if(err){
+            logger.error('Error removing watchermen: ' + err);
+        }
+        res.send('ok');
     });
 });
 
