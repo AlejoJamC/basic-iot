@@ -19,6 +19,9 @@ auth = 'Bearer ' + env['bearer_token']  # Bearer token assigned to this raspberr
 # Raspberry ID
 rasp_id = env['rasp_id']
 
+# Variable to execute cronjob
+cronjob = env['cronjob']
+
 # Adafruit_DHT.DHT22
 sensor = Adafruit_DHT.DHT22
 
@@ -30,41 +33,42 @@ humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 # humidity = 66.8
 # temperature = 27.5
 
-# print connection messages
-print('Connecting to Basic IoT API server')
-# Validate API URL different than Null or None
-if api_url is not None:
-    print(api_url)
-else:
-    print('Error, it cannot find API URL to connect')
-# Validate if Bearer token was loaded
-if auth is not None:
-    print('Authenticacion values: ok')
-else:
-    print('Error loading authentication values')
+if cronjob:
+    # print connection messages
+    print('Connecting to Basic IoT API server')
+    # Validate API URL different than Null or None
+    if api_url is not None:
+        print(api_url)
+    else:
+        print('Error, it cannot find API URL to connect')
+    # Validate if Bearer token was loaded
+    if auth is not None:
+        print('Authenticacion values: ok')
+    else:
+        print('Error loading authentication values')
 
-# Connect to basic iot - server
-# Endpoint /sensors/:id Method: POST
-# Connection to server IP
-endpoint = api_url + "/sensors"
-# Assigne body values
-data = {
-    'name': 'raspberry principal',
-    'values': {
-        'humidity': humidity,
-        'temperature': temperature
-    },
-    'clientId': rasp_id
-}
-# Declare headers
-header = {
-    'Content-type': 'application/json',
-    'Authorization': auth
-}
+    # Connect to basic iot - server
+    # Endpoint /sensors/:id Method: POST
+    # Connection to server IP
+    endpoint = api_url + "/sensors"
+    # Assigne body values
+    data = {
+        'name': 'raspberry principal',
+        'values': {
+            'humidity': humidity,
+            'temperature': temperature
+        },
+        'clientId': rasp_id
+    }
+    # Declare headers
+    header = {
+        'Content-type': 'application/json',
+        'Authorization': auth
+    }
 
-# Request
-r = requests.post(endpoint, headers= header, data= json.dumps(data))
-print r.status_code
+    # Request
+    r = requests.post(endpoint, headers= header, data= json.dumps(data))
+    print r.status_code
 
 # Return values
 if humidity is not None and temperature is not None:
